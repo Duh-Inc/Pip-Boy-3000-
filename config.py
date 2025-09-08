@@ -1,42 +1,29 @@
 # config.py
-# Configuration for RasPipBoy 3000 Emulator
-
 import pygame
 import os
 
-# ----------------- Display -----------------
-WIDTH = 480        # width of the Pip-Boy screen in pixels
-HEIGHT = 320       # height of the Pip-Boy screen in pixels
-FPS = 30           # frames per second
+# ----------------- SCREEN -----------------
+WIDTH = 480      # your Pi screen width
+HEIGHT = 320     # your Pi screen height
+BG_COLOR = (0, 0, 0)
+FG_COLOR = (0, 255, 0)       # green text like Pip-Boy
+DRAWCOLOUR = (0, 255, 0)
+SELBOXGREY = 50               # gray for selected box
 
-# ----------------- Colors -----------------
-DRAWCOLOUR = (0, 255, 0)       # classic green Pip-Boy text
-BACKGROUND = (0, 0, 0)         # black background
+# ----------------- FONT -------------------
+# Path to your Monofonto OTF
+FONT_PATH = os.path.join(os.path.dirname(__file__), "Monofonto.otf")
 
-# ----------------- Fonts -----------------
-pygame.init()
+# Character height (approx)
+CHAR_HEIGHT = 16
+charHeight = CHAR_HEIGHT  # for headFoot compatibility
 
-# Try Monofonto first; fallback to Courier New if unavailable
-FONT_PATH = "fonts/Monofonto.ttf"  # place Monofonto TTF here if you have it
+# Initialize pygame font system
+pygame.font.init()
+FONT_SM = pygame.font.Font(FONT_PATH, 14)  # small font for subtabs
+FONT_LRG = pygame.font.Font(FONT_PATH, 18)  # large font for headers, modes
 
-if os.path.exists(FONT_PATH):
-    FONT_SM = pygame.font.Font(FONT_PATH, 14)
-    FONT_MD = pygame.font.Font(FONT_PATH, 16)
-    FONT_LRG = pygame.font.Font(FONT_PATH, 18)
-else:
-    FONT_SM = pygame.font.SysFont("Courier New", 14)
-    FONT_MD = pygame.font.SysFont("Courier New", 16)
-    FONT_LRG = pygame.font.SysFont("Courier New", 18)
-
-# ----------------- Character height -----------------
-charHeight = FONT_SM.get_linesize()  # used for scrolling lists
-
-# ----------------- Paths -----------------
-MUSIC_FOLDER = "music"
-FONT_FOLDER = "fonts"
-DATA_FOLDER = "data"
-
-# ----------------- Modules (placeholders) -----------------
-# These will be replaced by your actual hardware modules later
-gpsModule = None
-gammaModule = None
+# ----------------- OTHER -----------------
+MUSIC_FOLDER = os.path.join(os.path.dirname(__file__), "music")
+DEFAULT_COVER = pygame.Surface((100, 100))
+DEFAULT_COVER.fill((0, 255, 0))
